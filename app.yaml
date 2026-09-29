@@ -1,0 +1,6 @@
+runtime: python
+entrypoint: gunicorn -b :$PORT app:app
+
+runtime_config: 
+  operating_system: "ubuntu24"
+  runtime_version: "3.14.7"
