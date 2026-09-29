@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 
 # get environment variables
-app.config['DEBUG'] = os.environ.get('FLASK_DEBUG')
+# app.config['DEBUG'] = os.environ.get('FLASK_DEBUG')
 
 ## implement GET /
 @app.get('/')
