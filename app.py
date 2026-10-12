@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, request, abort, jsonify, make_response
+from flask_socketio import SocketIO, emit
 from uuid import uuid4, UUID
 import os
 #from mysqlx import Row
@@ -6,13 +7,14 @@ import datetime
 import psycopg2
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 ## Connect database
 DB_NAME = "postgres"
 DB_USER = "postgres"
-DB_PASS = "padmin"
-DB_HOST = "localhost"
-DB_PORT = "8080"
+DB_PASS = "B00-s3rv3r"
+DB_HOST = "10.45.16.3"
+DB_PORT = "5430"
 
 try:
     conn = psycopg2.connect(database=DB_NAME,
@@ -24,6 +26,10 @@ try:
     print("Database connected successfully")
 except:
     print("Database not connected successfully")
+
+@socketio.on('disconnect')
+def disconnect_server():
+    conn.close()
 
 ## implement GET /
 @app.get('/')
