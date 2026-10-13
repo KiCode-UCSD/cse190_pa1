@@ -13,7 +13,7 @@ socketio = SocketIO(app)
 DB_NAME = "postgres"
 DB_USER = "postgres"
 DB_PASS = "B00-s3rv3r"
-DB_HOST = "10.45.16.3"
+DB_HOST = "35.197.83.2"
 DB_PORT = "5430"
 
 try:
