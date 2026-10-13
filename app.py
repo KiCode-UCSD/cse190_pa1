@@ -11,14 +11,11 @@ DB_NAME = "postgres"
 DB_USER = "postgres"
 DB_PASS = "B00-s3rv3r"
 DB_HOST = "35.197.83.2"
-DB_PORT = "5430"
+DB_PORT = "5432"
+DB_URL = "postgresql://postgres:B00-s3v3r@35.197.83.2:5432/postgres?sslmode=require"
 
 try:
-    conn = psycopg2.connect(database=DB_NAME,
-                            user=DB_USER,
-                            password=DB_PASS,
-                            host=DB_HOST,
-                            port=DB_PORT)
+    conn = psycopg2.connect(DB_URL)
     print("break1")
     boogledb = conn.cursor()
     print("Database connected successfully")
