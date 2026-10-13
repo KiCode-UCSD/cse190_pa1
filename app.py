@@ -1,7 +1,6 @@
 from flask import Flask, redirect, render_template, request, abort, jsonify, make_response
 from uuid import uuid4, UUID
 import os
-#from mysqlx import Row
 import datetime
 import psycopg2
 
@@ -10,8 +9,8 @@ app = Flask(__name__)
 ## Connect database
 DB_NAME = "postgres"
 DB_USER = "postgres"
-DB_PASS = os.environ["B00-s3rv3r"]
-DB_HOST = "127.0.0.1"
+DB_PASS = "B00-s3rv3r"
+DB_HOST = "35.197.83.2"
 DB_PORT = "5430"
 
 try:
