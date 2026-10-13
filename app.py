@@ -1,5 +1,4 @@
 from flask import Flask, redirect, render_template, request, abort, jsonify, make_response
-from flask_socketio import SocketIO, emit
 from uuid import uuid4, UUID
 import os
 #from mysqlx import Row
@@ -7,7 +6,6 @@ import datetime
 import psycopg2
 
 app = Flask(__name__)
-socketio = SocketIO(app)
 
 ## Connect database
 DB_NAME = "postgres"
@@ -29,11 +27,6 @@ try:
 except:
     print("Database not connected successfully")
     print("break3")
-    
-
-@socketio.on('disconnect')
-def disconnect_server():
-    conn.close()
 
 ## implement GET /
 @app.get('/')
@@ -160,5 +153,7 @@ if __name__ == "__main__":
     print("in main!")
     app.run(host="0.0.0.0", port="8000", debug=True)
 
-# close connection to boogle database
-#conn.close()
+    # close connection to boogle database
+    print("closing db connection...")
+    conn.close()
+
