@@ -26,6 +26,7 @@ try:
     print("Database connected successfully")
 except:
     print("Database not connected successfully")
+    abort(503)
 
 @socketio.on('disconnect')
 def disconnect_server():
