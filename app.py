@@ -7,14 +7,10 @@ import psycopg2
 app = Flask(__name__)
 
 ## Connect database
-DB_NAME = "postgres"
-DB_USER = "postgres"
-DB_PASS = "B00-s3rv3r"
-DB_HOST = "35.197.83.2"
-DB_PORT = "5432"
-DB_URL = "postgresql://postgres:B00-s3v3r@35.197.83.2:5432/postgres?sslmode=require"
+DB_URL = "postgresql://postgres:padmin@127.0.0.1:8080/postgres"
 
 try:
+    print("hanging :(")
     conn = psycopg2.connect(DB_URL)
     print("break1")
     boogledb = conn.cursor()
