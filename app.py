@@ -12,8 +12,8 @@ socketio = SocketIO(app)
 ## Connect database
 DB_NAME = "postgres"
 DB_USER = "postgres"
-DB_PASS = "B00-s3rv3r"
-DB_HOST = '/cloudsql/{}'.format("data-hangout-509921-f2:us-west1:cloud-boogle-db")
+DB_PASS = os.environ["B00-s3rv3r"]
+DB_HOST = "127.0.0.1"
 DB_PORT = "5430"
 
 try:
@@ -22,12 +22,14 @@ try:
                             password=DB_PASS,
                             host=DB_HOST,
                             port=DB_PORT)
+    print("break1")
     boogledb = conn.cursor()
     print("Database connected successfully")
-    abort(502)
+    print("break2")
 except:
     print("Database not connected successfully")
-    abort(503)
+    print("break3")
+    
 
 @socketio.on('disconnect')
 def disconnect_server():
@@ -154,8 +156,9 @@ def json():
         return abort(400)
 
 if __name__ == "__main__":
-    #replaced host="0.0.0.0" with internal IP address of vm instance 10.138.0.3
-    app.run(host="10.138.0.3", port="8000")
+    #replaced host="0.0.0.0" with external IP address of vm instance
+    print("in main!")
+    app.run(host="0.0.0.0", port="8000", debug=True)
 
 # close connection to boogle database
 #conn.close()
