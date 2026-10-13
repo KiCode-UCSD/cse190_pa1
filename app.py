@@ -13,7 +13,7 @@ socketio = SocketIO(app)
 DB_NAME = "postgres"
 DB_USER = "postgres"
 DB_PASS = "B00-s3rv3r"
-DB_HOST = "35.197.83.2"
+DB_HOST = '/cloudsql/{}'.format("data-hangout-509921-f2:us-west1:cloud-boogle-db")
 DB_PORT = "5430"
 
 try:
