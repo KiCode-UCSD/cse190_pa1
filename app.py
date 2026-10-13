@@ -24,6 +24,7 @@ try:
                             port=DB_PORT)
     boogledb = conn.cursor()
     print("Database connected successfully")
+    abort(502)
 except:
     print("Database not connected successfully")
     abort(503)
