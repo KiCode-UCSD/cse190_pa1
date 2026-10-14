@@ -56,6 +56,38 @@ $function$;
 
 -- ********************************************* --
 
+-- create function to get lastest ip given a client_id from requests
+CREATE OR REPLACE FUNCTION boogleschema.get_latest_ip(user_id UUID)
+RETURNS INET 
+LANGUAGE sql
+STABLE
+AS $function$
+    SELECT r.ip -- select ip
+    FROM requests r
+    WHERE r.client_id = user_id -- match to user_id
+    ORDER BY r.ts DESC -- order requests by timestamp descending
+    LIMIT 1;
+$function$;
+
+-- ********************************************* --
+
+-- create function to get ips for a given client_id from requests
+CREATE OR REPLACE FUNCTION boogleschema.get_client_ips(user_id UUID)
+RETURNS json 
+LANGUAGE sql
+STABLE
+AS $function$
+    SELECT COALESCE (
+		json_agg (
+	        DISTINCT r.ip
+		), '[]'::json 
+    )
+    FROM requests r
+    WHERE r.client_id = user_id; -- match to user_id
+$function$;
+
+-- ********************************************* --
+
 -- Create function to aggregate and format dump data from all clients
 CREATE OR REPLACE FUNCTION boogleschema.dump_data()
 RETURNS json 
@@ -87,34 +119,5 @@ SELECT json_build_object(
 FROM clients c;
 $function$;
 
--- ********************************************* --
 
--- create function to get ips for a given client_id from requests
-CREATE OR REPLACE FUNCTION boogleschema.get_client_ips(user_id UUID)
-RETURNS json 
-LANGUAGE sql
-STABLE
-AS $function$
-    SELECT COALESCE (
-		json_agg (
-	        DISTINCT r.ip
-		), '[]'::json 
-    )
-    FROM requests r
-    WHERE r.client_id = user_id; -- match to user_id
-$function$;
 
--- ********************************************* --
-
--- create function to get lastest ip given a client_id from requests
-CREATE OR REPLACE FUNCTION boogleschema.get_latest_ip(user_id UUID)
-RETURNS INET 
-LANGUAGE sql
-STABLE
-AS $function$
-    SELECT r.ip -- select ip
-    FROM requests r
-    WHERE r.client_id = user_id -- match to user_id
-    ORDER BY r.ts DESC -- order requests by timestamp descending
-    LIMIT 1;
-$function$;
