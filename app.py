@@ -46,13 +46,13 @@ def index():
             # add cookie to database
             boogledb.execute("INSERT INTO clients (client_id) VALUES (%s);", (user_id))
         else:
-            try:
+            if user_id != 'None':
                 print('\ncookie exists with id: ' + user_id + '\n')
                 print('\n updating user in clients to last_seen\n')
                 
                 # update last_seen for user's cookie
                 boogledb.execute("UPDATE clients SET last_seen = DEFAULT WHERE client_id = %s;", (user_id, ))
-            except:
+            else:
                 # in case there is a cookie but no database entry for it
                 new_id = str(uuid4())
                 response.set_cookie('boogle_id', value=new_id, path='/', expires='Sat, 31 Oct 2026 11:59:00 PST',
