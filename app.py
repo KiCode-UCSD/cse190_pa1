@@ -54,9 +54,10 @@ def index():
                 boogledb.execute("UPDATE clients SET last_seen = DEFAULT WHERE client_id = %s;", (user_id, ))
             except:
                 # in case there is a cookie but no database entry for it
-                response.set_cookie('boogle_id', value=user_id, path='/', expires='Sat, 31 Oct 2026 11:59:00 PST',
+                new_id = str(uuid4())
+                response.set_cookie('boogle_id', value=new_id, path='/', expires='Sat, 31 Oct 2026 11:59:00 PST',
                                                 secure=False, samesite='lax')
-                boogledb.execute("INSERT INTO clients (client_id) VALUES (%s);", (user_id, ))
+                boogledb.execute("INSERT INTO clients (client_id) VALUES (%s);", (new_id, ))
 
         # record request to requests table
         #user_id = request.cookies.get('boogle_id')
