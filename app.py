@@ -48,7 +48,7 @@ def index():
                 print('\n updating user in clients to last_seen\n')
                 
                 # update last_seen for user's cookie
-                boogledb.execute("UPDATE clients SET last_seen = DEFAULT WHERE client_id = %s;", (user_id, ))
+                boogledb.execute("UPDATE clients SET last_seen = CURRENT_TIMESTAMP WHERE client_id = %s;", (user_id, ))
             except:
                 # in case there is a cookie but no database entry for it
                 response.set_cookie('boogle_id', value=user_id, path='/', expires='Sat, 31 Oct 2026 11:59:00 PST',
